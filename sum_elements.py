@@ -8,30 +8,40 @@ def calculate_sum(arr):
       result += num
    return result
 
-def main():
-   try:
-      n = int(input("Enter the number of elements (1-100): "))
-      if not 1 <= n <= MAX:
-            print("Invalid input. Please provide a digit ranging from 1 to 100.")
-            exit(1)
+def get_number_of_elements():
+    """Solicita al usuario el número de elementos y valida la entrada."""
+    while True:
+        try:
+            n = int(input("Enter the number of elements (1-100): "))
+            if 1 <= n <= MAX:
+                return n
+            else:
+                print("Invalid input. Please provide a number between 1 and 100.")
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
 
-      arr = []
-
-      print(f"Enter {n} integers:")
-      for _ in range(n):
+def get_elements(n):
+    """Solicita al usuario los elementos y valida que sean enteros."""
+    arr = []
+    print(f"Enter {n} integers:")
+    for _ in range(n):
+        while True:
             try:
-               arr.append(int(input()))
+                arr.append(int(input()))
+                break
             except ValueError:
-               print("Invalid input. Please enter valid integers.")
-               exit(1)
+                print("Invalid input. Please enter a valid integer.")
+    return arr
 
-      total = calculate_sum(arr)
-
-      print("Sum of the numbers:", total)
-
-   except KeyboardInterrupt:
-      print("\nProgram terminated by user.")
-      exit(1)
+def main():
+    try:
+        n = get_number_of_elements()
+        arr = get_elements(n)
+        total = calculate_sum(arr)
+        print("Sum of the numbers:", total)
+    except KeyboardInterrupt:
+        print("\nProgram terminated by user.")
+        exit(1)
 
 if __name__ == "__main__":
    main()
